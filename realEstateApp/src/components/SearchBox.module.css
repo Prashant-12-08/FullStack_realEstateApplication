@@ -1,0 +1,48 @@
+.searchBox button {
+  padding: 16px 32px;
+  border: 1px solid #999;
+  cursor: pointer;
+  text-transform: capitalize;
+  font-size: 16px;
+  background-color: white;
+  border-bottom: none;
+}
+.searchBox .active {
+  background-color: #111;
+  color: white;
+}
+.searchBox button:first-child {
+  border-top-left-radius: 5px;
+  border-right: none;
+}
+
+.searchBox button:nth-child(2) {
+  border-top-right-radius: 5px;
+  border-left: none;
+}
+
+.form {
+  border: 1px solid #999;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  justify-content: space-between;
+  height: 62px;
+}
+.form input {
+  border: none;
+  padding: 0 10px;
+  height: 100%;
+  width: 200px;
+}
+
+.form button {
+  background-color: #fece51;
+  flex: 1;
+  border: none;
+  cursor: pointer;
+}
+.form img {
+  width: 24px;
+  height: 24px;
+}

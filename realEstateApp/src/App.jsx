@@ -1,9 +1,16 @@
-import AppNavBar from "./assets/components/AppNavBar";
+import "./App.css";
+import AppNavBar from "./components/AppNavBar";
+import HomePage from "./pages/HomePage";
 
 function App() {
   return (
-    <div>
-      <AppNavBar></AppNavBar>
+    <div className="app">
+      <div className="navbar">
+        <AppNavBar />
+      </div>
+      <div className="content">
+        <HomePage />
+      </div>
     </div>
   );
 }

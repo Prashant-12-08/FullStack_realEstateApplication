@@ -1,0 +1,39 @@
+.homePage {
+  display: flex;
+  height: 100%;
+}
+
+/* TEXTCONTAINER */
+.textContainer {
+  flex: 3;
+}
+.wrapper {
+  padding-right: 100px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 50px;
+  height: 100%;
+}
+.tittle {
+  font-size: 52px;
+  line-height: 1;
+}
+.description {
+  font-size: 18px;
+  line-height: 1.5;
+}
+.box {
+  display: flex;
+  justify-content: space-between;
+}
+.imgContainer {
+  flex: 2;
+  position: relative;
+  background-color: #fcf5f3;
+}
+.imgContainer img {
+  position: absolute;
+  width: 115%;
+  right: 0;
+}
