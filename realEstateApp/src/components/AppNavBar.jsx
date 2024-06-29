@@ -5,7 +5,7 @@ function AppNavBar() {
   return (
     <nav className={styles.nav}>
       <div className={styles.left}>
-        <a href="#" className={styles.logo}>
+        <a href="cities" className={styles.logo}>
           <img src="/logo.png" />
           <span>LamaEstate</span>
         </a>
