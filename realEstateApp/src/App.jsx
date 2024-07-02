@@ -1,16 +1,13 @@
-import "./App.css";
-import AppNavBar from "./components/AppNavBar";
-import HomePage from "./pages/HomePage";
-import AppLayout from "./pages/AppLayout";
 import {
   createBrowserRouter,
   RouterProvider,
-  Route,
-  Link,
-  BrowserRouter,
-  Routes,
   Navigate,
 } from "react-router-dom";
+
+import "./App.css";
+import HomePage from "./pages/HomePage";
+import AppLayout from "./pages/AppLayout";
+import ListPage from "./pages/ListPage";
 
 function App() {
   const router = createBrowserRouter([
@@ -19,10 +16,11 @@ function App() {
       element: <AppLayout />,
       children: [
         { index: true, element: <Navigate to="homePage" /> },
-        { path: "/homePage", element: <HomePage /> },
+        { path: "homePage", element: <HomePage /> },
         {
-          path:
-        }
+          path: "listPage",
+          element: <ListPage />,
+        },
       ],
     },
   ]);
