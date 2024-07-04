@@ -1,6 +1,7 @@
 .detailPage {
   display: flex;
   height: 100%;
+  width: 100%;
 }
 
 /*  ######## DETAILS  ######3 */
@@ -11,6 +12,7 @@
   display: flex;
   flex-direction: column;
   padding-right: 50px;
+  width: 100%;
 }
 
 .info {
@@ -22,6 +24,7 @@
   display: flex;
   flex-direction: column;
   gap: 16px;
+  overflow: auto;
 }
 .desc h1 {
   font-weight: 500;
@@ -59,6 +62,7 @@
   justify-content: center;
   gap: 20px;
   font-weight: 600;
+  border-radius: 16px;
 }
 .userImg {
   width: 48px;
@@ -71,6 +75,7 @@
   margin-top: 50px;
   color: #555;
   line-height: 20px;
+  margin-bottom: 64px;
 }
 .fetures {
   flex: 2;
