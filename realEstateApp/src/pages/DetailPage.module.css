@@ -1,0 +1,16 @@
+.detailPage {
+  display: flex;
+  border: 1px solid black;
+  height: 100%;
+}
+
+/* .details {
+  height: 100%;
+  flex: 3;
+}
+
+.fetures {
+  height: 100%;
+  flex: 2;
+  background-color: #fcf5f3;
+} */

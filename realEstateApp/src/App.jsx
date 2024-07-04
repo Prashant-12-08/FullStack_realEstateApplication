@@ -8,6 +8,7 @@ import "./App.css";
 import HomePage from "./pages/HomePage";
 import AppLayout from "./pages/AppLayout";
 import ListPage from "./pages/ListPage";
+import DetailPage from "./pages/DetailPage";
 
 function App() {
   const router = createBrowserRouter([
@@ -20,6 +21,10 @@ function App() {
         {
           path: "listPage",
           element: <ListPage />,
+        },
+        {
+          path: "listPage/:houseId",
+          element: <DetailPage />,
         },
       ],
     },

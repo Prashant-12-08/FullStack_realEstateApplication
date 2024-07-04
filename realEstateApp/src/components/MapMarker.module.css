@@ -1,0 +1,36 @@
+.popup_content {
+  /* width: 64px; */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  color: #111;
+}
+
+.popup_content img {
+  width: 64px;
+  height: 64px;
+  border-radius: 5px;
+}
+.popup_content p {
+  margin: 0;
+}
+.content h3 {
+  font-size: 14px;
+  font-weight: 600;
+  color: #222;
+}
+.content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: start;
+  gap: 2px;
+}
+.content p {
+  font-weight: 500;
+}
+.content p:last-child {
+  font-size: 14px;
+  font-weight: 600;
+}

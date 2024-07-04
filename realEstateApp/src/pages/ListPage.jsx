@@ -1,7 +1,10 @@
 import React from "react";
+import { useState } from "react";
 import style from "./ListPage.module.css";
+
 import Card from "../components/Card";
 import Filter from "../components/Filter";
+import Map from "../components/Map.jsx";
 import data from "../lib/temp.js";
 
 const ListPage = () => {
@@ -15,7 +18,9 @@ const ListPage = () => {
           })}
         </div>
       </div>
-      <div className={style.mapContainer}></div>
+      <div className={style.mapContainer}>
+        <Map items={data} />
+      </div>
     </div>
   );
 };
