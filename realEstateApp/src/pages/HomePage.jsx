@@ -17,7 +17,9 @@ function HomePage() {
             soluta quia deserunt possimus aliquid, quis beatae nostrum tempora.
             Corrupti!
           </p>
-          <SearchBox />
+          <div className={style.searchBox}>
+            <SearchBox />
+          </div>
           <div className={style.box}>
             <StatBox data={16} message="Experience" />
             <StatBox data={200} message="Award Gained" />

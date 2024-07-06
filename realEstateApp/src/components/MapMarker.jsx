@@ -7,7 +7,7 @@ function MapMarker({ item }) {
   return (
     <Marker position={[item.latitude, item.longitude]}>
       <Popup>
-        <Link to={`/${item.id}`}>
+        <Link to={`${item.id}`}>
           <div className={style.popup_content}>
             <img src={`${item.img}`} alt="" />
             <div className={style.content}>

@@ -1,0 +1,25 @@
+.featureBox {
+  display: flex;
+  background-color: white;
+  border-radius: 10px;
+  gap: 8px;
+  align-items: center;
+}
+.featureBox img {
+  width: 24px;
+  height: 24px;
+  background-color: rgb(254, 205, 81, 0.209);
+}
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+.content span {
+  font-weight: bold;
+  color: #333;
+}
+.content p {
+  color: #222;
+  font-size: 14px;
+}
