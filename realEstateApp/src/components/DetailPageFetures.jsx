@@ -1,36 +1,56 @@
-import React from "react";
+import React from 'react';
 
-import style from "./DetailPageFeature.module.css";
-import FeatureBox from "../pages/FeatureBox";
-import { singlePostData } from "../lib/temp";
-import Map from "./Map";
+import style from './DetailPageFeature.module.css';
+import FeatureBox from '../pages/FeatureBox';
+import { singlePostData } from '../lib/temp';
+import Map from './Map';
 
 const featuresEl = [
-  { img: "/utility.png", title: "Utilities", desc: "Render is responsible" },
-
-  { img: "/pet.png", title: "Pet Policy", desc: "Pets Allowed" },
   {
-    img: "/fee.png",
-    title: "Property Fees",
-    desc: "Must have 3x the rent in total household  income",
+    img: '/utility.png',
+    title: 'Utilities',
+    desc: 'Render is responsible',
+  },
+
+  {
+    img: '/pet.png',
+    title: 'Pet Policy',
+    desc: 'Pets Allowed',
+  },
+  {
+    img: '/fee.png',
+    title: 'Property Fees',
+    desc: 'Must have 3x the rent in total household  income',
   },
 ];
 
 const nearbyPlace = [
-  { img: "/school.png", title: "School", desc: "250m away" },
-  { img: "/bus.png", title: "Bus stop", desc: "100m away" },
-  { img: "/restaurant.png", title: "Restaurant", desc: "500m away" },
+  {
+    img: '/school.png',
+    title: 'School',
+    desc: '250m away',
+  },
+  {
+    img: '/bus.png',
+    title: 'Bus stop',
+    desc: '100m away',
+  },
+  {
+    img: '/restaurant.png',
+    title: 'Restaurant',
+    desc: '500m away',
+  },
 ];
 
 const roomInfo = [
-  { img: "/size.png", desc: "80sqfm (861sqrt)" },
-  { img: "/bed.png", desc: "1 bed" },
-  { img: "/bath.png", desc: "1 bath" },
+  { img: '/size.png', desc: '80sqfm (861sqrt)' },
+  { img: '/bed.png', desc: '1 bed' },
+  { img: '/bath.png', desc: '1 bath' },
 ];
 
 const buttons = [
-  { img: "/chat.png", desc: "Send a Message" },
-  { img: "/save.png", desc: "Save the Place" },
+  { img: '/chat.png', desc: 'Send a Message' },
+  { img: '/save.png', desc: 'Save the Place' },
 ];
 
 function DetailPageFetures() {

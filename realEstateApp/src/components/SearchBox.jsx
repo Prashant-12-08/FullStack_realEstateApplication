@@ -1,12 +1,12 @@
-import React, { useState } from "react";
-import style from "./SearchBox.module.css";
+import React, { useState } from 'react';
+import style from './SearchBox.module.css';
 
-const categories = ["buy", "rent"];
+const categories = ['buy', 'rent'];
 
 function SearchBox() {
   const [state, setState] = useState({
-    category: "buy",
-    location: "",
+    category: 'buy',
+    location: '',
     minPrice: 0,
     maxPrice: 0,
   });

@@ -30,6 +30,32 @@
   margin: 0 24px;
   padding: 12px 24px;
 }
+
+.user {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  gap: 12px;
+  font-size: 14px;
+  font-weight: 600;
+}
+.user img {
+  width: 32px;
+  height: 32px;
+  border-radius: 100%;
+  object-fit: cover;
+}
+
+.user_name {
+}
+
+.profileBtn {
+  margin: 0;
+}
+
+.profileBtn {
+  background-color: #fece51;
+}
 .logo {
   display: flex;
   font-size: 20px;
