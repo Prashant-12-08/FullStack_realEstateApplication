@@ -1,11 +1,11 @@
-import React from "react";
-import style from "./Card.module.css";
-import { Link } from "react-router-dom";
+import React from 'react';
+import style from './Card.module.css';
+import { Link } from 'react-router-dom';
 
 function Card({ item }) {
   return (
     <div className={style.card}>
-      <Link to={`${item.id}`} className={style.imgContainer}>
+      <Link to={`/${item._id}`} className={style.imgContainer}>
         <img src={`${item.img}`} />
       </Link>
       <div className={style.textContainer}>

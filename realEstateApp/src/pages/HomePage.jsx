@@ -1,7 +1,6 @@
-import React from "react";
-import style from "./HomePage.module.css";
-import StatBox from "../components/StatBox";
-import SearchBox from "../components/SearchBox";
+import style from './HomePage.module.css';
+import StatBox from '../components/StatBox';
+import SearchBox from '../components/SearchBox';
 
 function HomePage() {
   return (

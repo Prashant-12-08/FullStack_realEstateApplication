@@ -3,6 +3,7 @@ import {
   RouterProvider,
   Navigate,
 } from 'react-router-dom';
+import * as React from 'react';
 // 1. import `ChakraProvider` component
 import { ChakraProvider, extendTheme } from '@chakra-ui/react';
 
@@ -12,7 +13,9 @@ import AppLayout from './pages/AppLayout';
 import ListPage from './pages/ListPage';
 import DetailPage from './pages/DetailPage';
 import ProfilePage from './pages/ProfilePage';
-import * as React from 'react';
+import { AuthProvider } from './context/AuthContext';
+import SignIn from './components/SignIn';
+import NewPostPage from './pages/NewPostPage';
 
 const colors = {
   brand: {
@@ -44,12 +47,20 @@ function App() {
           element: <ListPage />,
         },
         {
-          path: 'listPage/:houseId',
+          path: 'postDetail/:houseId',
           element: <DetailPage />,
         },
         {
           path: 'profile',
           element: <ProfilePage />,
+        },
+        {
+          path: 'signIn',
+          element: <SignIn />,
+        },
+        {
+          path: 'newPost',
+          element: <NewPostPage />,
         },
       ],
     },
@@ -60,7 +71,9 @@ function App() {
   // );
   return (
     <ChakraProvider theme={theme}>
-      <RouterProvider router={router}></RouterProvider>
+      <AuthProvider>
+        <RouterProvider router={router}></RouterProvider>
+      </AuthProvider>
     </ChakraProvider>
   );
 

@@ -1,13 +1,14 @@
 import React from 'react';
 
-import data from '../lib/temp';
+// import data from '../lib/temp';
 import Card from './Card';
 import style from './ListCard.module.css';
 
-function ListCard() {
+function ListCard({ posts }) {
+  console.log(posts);
   return (
     <div className={style.listCard}>
-      {data.map((item, i) => (
+      {posts.map((item, i) => (
         <Card key={i} item={item} />
       ))}
     </div>
