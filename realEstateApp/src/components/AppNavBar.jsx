@@ -20,7 +20,7 @@ function AppNavBar() {
           credentials: 'include',
         });
         const userData = await res.json();
-        console.log(userData);
+        setCurrentUser(userData.data.user);
       } catch (err) {
         console.warn(err, '🤬😡😠');
       }
@@ -41,9 +41,9 @@ function AppNavBar() {
         <a href="#">Agents</a>
       </div>
       <div className={styles.right}>
-        {currentUser ? (
+        {currentUser._id ? (
           <div className={styles.user}>
-            <img src={`/${currentUser.avatar}`} alt="" />
+            <img src="/default/user_default_img.jpg" alt="" />
             <span className={styles.user_name}>{currentUser.name}</span>
             <Link to="profile" className={styles.profileBtn}>
               Profile

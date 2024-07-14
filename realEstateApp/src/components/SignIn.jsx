@@ -26,11 +26,14 @@ function SignIn() {
   });
   const navigator = useNavigate();
 
+  // handling the submit event user submit there data
   async function handleSumbit(e) {
     e.preventDefault();
 
+    // formatting the sumbit data into FormDaa
     const formData = new FormData(e.target);
 
+    // getting the form data sending the in object form
     const name = formData.get('username');
     const email = formData.get('email');
     const password = formData.get('password');
@@ -50,14 +53,17 @@ function SignIn() {
           'Content-Type': 'application/json',
         },
       });
+
       const userData = await res.json();
+
       if (!res.ok) throw new Error(userData.message);
+
       dispatch({ type: 'Ready' });
       setCurrentUser(userData.data.user);
+
       navigator('/homePage', { replace: true });
     } catch (err) {
       dispatch({ type: 'Error' });
-      console.warn(err);
     }
   }
 

@@ -3,23 +3,29 @@ import styles from './NewPostPage.module.css';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import { useNavigate } from 'react-router-dom';
+import { Spinner } from '@chakra-ui/react';
 
 import { useUser } from '../context/AuthContext';
 import { PostLocalHost } from '../lib/PostLocalHost';
+import { useFetchState } from '../hooks/useFetchState';
 
 function NewPostPage() {
+  const { currentUser } = useUser();
+  const navigate = useNavigate();
   const [value, setValue] = useState('');
   const [images, setImages] = useState([]);
   const [error, setError] = useState('');
-  const { currentUser } = useUser();
-  const [postId, setPostId] = useState('');
-  const navigate = useNavigate();
+  //this hook have two state error:false ,isLoading:false
+  const [fetchState, setFetchState] = useFetchState();
 
+  // handling the form submit event
   const handleSubmit = async (e) => {
     e.preventDefault();
     const formData = new FormData(e.target);
+
+    // converting the hashmap data to object format
     const inputs = Object.fromEntries(formData);
-    console.log(formData.get('title'));
+
     const postData = {
       userId: currentUser._id,
       title: inputs.title,
@@ -34,8 +40,10 @@ function NewPostPage() {
       longitude: inputs.longitude,
       images: images,
     };
-    // console.log(postData);
+
     try {
+      setFetchState({ type: 'Loading' });
+      // sending the data to the user
       const res = await fetch(`${PostLocalHost}`, {
         method: 'Post',
         credentials: 'include',
@@ -44,16 +52,19 @@ function NewPostPage() {
           'Content-Type': 'application/json',
         },
       });
-      const { data } = await res.json();
-      setPostId(data.newPost._id);
-      console.log('res', data.newPost._id);
-      navigate(`/postDetail/${data.newPost._id}`);
+      console.log(res);
+
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.status);
+      setFetchState({ type: 'Ready' });
+      // navigating the postdetail page so that we can access the id of post
+      navigate(`/postDetail/${data.data.newPost._id}`);
     } catch (err) {
+      setFetchState({ type: 'Error' });
+      setError(err.message);
       console.warn(err);
     }
   };
-
-  console.log(postId);
 
   return (
     <div className={styles.newPostPage}>
@@ -222,8 +233,17 @@ function NewPostPage() {
                 className={styles.input}
               />
             </div>
-            <button className={styles.sendButton}>Add</button>
-            {error && <span>{error}</span>}
+            <button
+              className={styles.sendButton}
+              disabled={fetchState.isLoading}
+            >
+              {!fetchState.isLoading ? (
+                <Spinner color="white" size="lg" thickness="3px" />
+              ) : (
+                <p>Add</p>
+              )}
+            </button>
+            {fetchState.error && <span>{error}</span>}
           </form>
         </div>
       </div>

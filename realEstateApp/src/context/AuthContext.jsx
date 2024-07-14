@@ -3,7 +3,7 @@ import { createContext, useContext, useState } from 'react';
 const AuthContext = createContext();
 
 function AuthProvider({ children }) {
-  const [currentUser, setCurrentUser] = useState(null);
+  const [currentUser, setCurrentUser] = useState({ _id: null });
 
   return (
     <AuthContext.Provider value={{ currentUser, setCurrentUser }}>
