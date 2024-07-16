@@ -69,7 +69,7 @@
   display: flex;
   flex-shrink: 0;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: space-around;
 }
 .smallImg img {
   height: 100px;

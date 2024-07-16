@@ -1,38 +1,47 @@
-import React from "react";
+import React from 'react';
 
-import { singlePostData, userData } from "../lib/temp";
-import style from "./Details.module.css";
-import ImgSlider from "./ImgSlider";
+import { singlePostData, userData } from '../lib/temp';
+import style from './Details.module.css';
+import ImgSlider from './ImgSlider';
 
-function Details() {
+function Details({ postDetails }) {
+  const { userId: user } = postDetails;
+
+  // defining the path of image
+  const newImages = postDetails.images.map((img, index) => {
+    const path = img.split('public')[1];
+    return path;
+  });
+
+  console.log(postDetails.images);
   return (
     <div className={style.details}>
       <div className={style.wrapper}>
         <div className={style.top}>
-          <ImgSlider images={singlePostData.images} />
+          <ImgSlider images={newImages} />
           <div className={style.info}>
             <div className={style.desc}>
-              <h1>{singlePostData.title}</h1>
+              <h1>{postDetails.title}</h1>
               <div className={style.address}>
                 <img src="/pin.png" alt="" />
-                <span>{singlePostData.address}</span>
+                <span>{postDetails.address}</span>
               </div>
               <p className={style.price}>
                 <span>$</span>
-                {singlePostData.price}
+                {postDetails.price}
               </p>
             </div>
             <div className={style.user}>
               <img
                 className={style.userImg}
-                src={`${userData.img}`}
+                src={`/default/${user.avatar}`}
                 alt="avatar"
               />
-              <p>{userData.name}</p>
+              <p>{user.name}</p>
             </div>
           </div>
         </div>
-        <div className={style.bottom}>{singlePostData.description}</div>
+        <div className={style.bottom}>{postDetails.description}</div>
       </div>
     </div>
   );

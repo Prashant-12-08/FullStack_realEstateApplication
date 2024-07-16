@@ -1,13 +1,18 @@
-import { MapContainer, TileLayer, useMap, Marker, Popup } from "react-leaflet";
+import { MapContainer, TileLayer, useMap, Marker, Popup } from 'react-leaflet';
 
-import style from "./Map.module.css";
-import "leaflet/dist/leaflet.css";
-import MapMarker from "./MapMarker";
+import style from './Map.module.css';
+import 'leaflet/dist/leaflet.css';
+import MapMarker from './MapMarker';
 
 function Map({ items }) {
   return (
     <MapContainer
-      center={[items[0].latitude, items[0].longitude]}
+      // center={[20.5937, 78.9629]}
+      center={
+        items.length === 1
+          ? [items[0].latitude, items[0].longitude]
+          : [20.5937, 78.9629]
+      }
       zoom={7}
       scrollWheelZoom={true}
       className={style.map}

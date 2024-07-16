@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
+import { Button } from '@chakra-ui/react';
 
 import { useUser } from '../context/AuthContext';
 import Btn from '../ReusableComponent/Button';
@@ -11,6 +12,23 @@ function ProfilePage() {
   const { currentUser, setCurrentUser } = useUser();
   const [userPosts, setUserPost] = useState([]);
 
+  async function handleLogOut(cookieName) {
+    try {
+      const res = await fetch(`${UserLocalHost}`, {
+        method: 'PATCH',
+        credentials: 'include',
+        body: JSON.stringify({
+          user: currentUser,
+        }),
+      });
+      const data = await res.json();
+      console.log(data);
+      setCurrentUser({ _id: null });
+      if (!res.ok) throw new Error(data.message);
+    } catch (err) {
+      alert(err.message);
+    }
+  }
   useEffect(
     function () {
       async function fetchingUserPost() {
@@ -19,8 +37,8 @@ function ProfilePage() {
           credentials: 'include',
         });
         const { data } = await res.json();
-        const { userPosts } = data.posts;
-        setUserPost(userPosts);
+        const { userPosts: userPost } = data.posts;
+        setUserPost(userPost);
       }
       fetchingUserPost();
     },
@@ -48,6 +66,9 @@ function ProfilePage() {
               <p>E-mail :</p>
               <p> {currentUser.email}</p>
             </div>
+            <Button onClick={() => handleLogOut('jwt')} colorScheme="green">
+              Log Out
+            </Button>
           </div>
           <div className={style.profileInfo}>
             <p className={style.userInfo}>My List</p>

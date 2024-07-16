@@ -1,9 +1,10 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import styles from './NewPostPage.module.css';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import { useNavigate } from 'react-router-dom';
 import { Spinner } from '@chakra-ui/react';
+import { Button } from '@chakra-ui/react';
 
 import { useUser } from '../context/AuthContext';
 import { PostLocalHost } from '../lib/PostLocalHost';
@@ -17,47 +18,57 @@ function NewPostPage() {
   const [error, setError] = useState('');
   //this hook have two state error:false ,isLoading:false
   const [fetchState, setFetchState] = useFetchState();
+  const inputEl = useRef(null);
+
+  //handle the file upload event
+  const handleImageUpload = () => {
+    inputEl.current.click();
+  };
+
+  // handle file change
+  const handleFileChange = (e) => {
+    if (!e.target.files[0]) return;
+    setImages((img) => [...img, e.target.files[0]]);
+  };
 
   // handling the form submit event
   const handleSubmit = async (e) => {
     e.preventDefault();
     const formData = new FormData(e.target);
-
+    images.forEach((img) => {
+      formData.append('images', img);
+    });
     // converting the hashmap data to object format
     const inputs = Object.fromEntries(formData);
 
-    const postData = {
-      userId: currentUser._id,
-      title: inputs.title,
-      price: parseInt(inputs.price),
-      address: inputs.address,
-      city: inputs.city,
-      bedroom: parseInt(inputs.bedroom),
-      bathroom: parseInt(inputs.bathroom),
-      type: inputs.type,
-      property: inputs.property,
-      latitude: inputs.latitude,
-      longitude: inputs.longitude,
-      images: images,
-    };
+    // converting string to number
+    formData.set('income', Number(inputs.income));
+    formData.set('restaurant', Number(inputs.restaurant));
+    formData.set('bus', Number(inputs.bus));
+    formData.set('school', Number(inputs.school));
+    formData.set('size', Number(inputs.size));
+    formData.set('price', Number(inputs.price));
+    formData.set('bedroom', Number(inputs.bedroom));
+    formData.set('bathroom', Number(inputs.bathroom));
+    formData.set(' latitude', Number(inputs.latitude));
+    formData.set('longitude', Number(inputs.longitude));
+    formData.append('userId', currentUser._id);
+    console.log(inputs);
 
     try {
       setFetchState({ type: 'Loading' });
-      // sending the data to the user
+      // 1) sending the data to the user
       const res = await fetch(`${PostLocalHost}`, {
         method: 'Post',
         credentials: 'include',
-        body: JSON.stringify(postData),
-        headers: {
-          'Content-Type': 'application/json',
-        },
+        body: formData,
       });
-      console.log(res);
 
       const data = await res.json();
       if (!res.ok) throw new Error(data.status);
       setFetchState({ type: 'Ready' });
-      // navigating the postdetail page so that we can access the id of post
+
+      //navigating the postdetail page so that we can access the id of post
       navigate(`/postDetail/${data.data.newPost._id}`);
     } catch (err) {
       setFetchState({ type: 'Error' });
@@ -137,7 +148,7 @@ function NewPostPage() {
               <input
                 id="latitude"
                 name="latitude"
-                type="text"
+                type="Number"
                 className={styles.input}
               />
             </div>
@@ -146,41 +157,45 @@ function NewPostPage() {
               <input
                 id="longitude"
                 name="longitude"
-                type="text"
+                type="Number"
                 className={styles.input}
               />
             </div>
             <div className={styles.item}>
               <label htmlFor="type">Type</label>
               <select name="type" className={styles.select}>
-                <option value="rent" defaultChecked>
+                <option value="Rent" defaultChecked>
                   Rent
                 </option>
-                <option value="buy">Buy</option>
+                <option value="Buy">Buy</option>
               </select>
             </div>
             <div className={styles.item}>
               <label htmlFor="property">Property</label>
               <select name="property" className={styles.select}>
-                <option value="apartment">Apartment</option>
-                <option value="house">House</option>
-                <option value="condo">Condo</option>
-                <option value="land">Land</option>
+                <option value="Apartment">Apartment</option>
+                <option value="House">House</option>
+                <option value="Condo">Condo</option>
+                <option value="Land">Land</option>
               </select>
             </div>
             <div className={styles.item}>
               <label htmlFor="utilities">Utilities Policy</label>
               <select name="utilities" className={styles.select}>
-                <option value="owner">Owner is responsible</option>
-                <option value="tenant">Tenant is responsible</option>
+                <option value="Owner is Responsible">
+                  Owner is responsible
+                </option>
+                <option value="Tenant is Responsible">
+                  Tenant is responsible
+                </option>
                 <option value="shared">Shared</option>
               </select>
             </div>
             <div className={styles.item}>
               <label htmlFor="pet">Pet Policy</label>
               <select name="pet" className={styles.select}>
-                <option value="allowed">Allowed</option>
-                <option value="not-allowed">Not Allowed</option>
+                <option value="Allowed">Allowed</option>
+                <option value="Not-allowed">Not Allowed</option>
               </select>
             </div>
             <div className={styles.item}>
@@ -237,7 +252,7 @@ function NewPostPage() {
               className={styles.sendButton}
               disabled={fetchState.isLoading}
             >
-              {!fetchState.isLoading ? (
+              {fetchState.isLoading ? (
                 <Spinner color="white" size="lg" thickness="3px" />
               ) : (
                 <p>Add</p>
@@ -249,8 +264,25 @@ function NewPostPage() {
       </div>
       <div className={styles.sideContainer}>
         {images.map((image, index) => (
-          <img src={image} key={index} alt="" className={styles.img} />
+          <img
+            src={URL.createObjectURL(image)}
+            key={index}
+            alt=""
+            className={styles.img}
+          />
         ))}
+        {/* <Button colorScheme="blue">Upload</Button> */}
+        <div onClick={handleImageUpload}>
+          <Button colorScheme="blue">Upload</Button>
+          <input
+            type="file"
+            ref={inputEl}
+            style={{ display: 'none' }}
+            onChange={handleFileChange}
+            accept="image/*"
+          />
+        </div>
+
         {/* <UploadWidget
           uwConfig={{
             multiple: true,

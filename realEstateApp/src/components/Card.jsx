@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 function Card({ item }) {
   return (
     <div className={style.card}>
-      <Link to={`/${item._id}`} className={style.imgContainer}>
+      <Link to={`/postDetail/${item._id}`} className={style.imgContainer}>
         <img src={`${item.img}`} />
       </Link>
       <div className={style.textContainer}>

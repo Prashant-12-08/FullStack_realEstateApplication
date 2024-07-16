@@ -1,11 +1,13 @@
-import React from "react";
-import { useState } from "react";
+import React from 'react';
+import { useState } from 'react';
 
-import Style from "./ImgSlider.module.css";
+import Style from './ImgSlider.module.css';
 
 function ImgSlider({ images }) {
   //states of a component
   const [imageNum, setImageNumber] = useState(null);
+
+  console.log(images);
 
   // variable
   let totalImg = images.length;
@@ -26,7 +28,7 @@ function ImgSlider({ images }) {
             <img
               src="/arrow.png"
               alt=""
-              style={{ width: "48px" }}
+              style={{ width: '48px' }}
               onClick={handleImgDec}
             />
           </div>
@@ -38,7 +40,7 @@ function ImgSlider({ images }) {
               src="/arrow.png"
               alt=""
               onClick={handleImgInc}
-              style={{ width: "48px" }}
+              style={{ width: '48px' }}
             />
           </div>
         </div>
@@ -46,7 +48,7 @@ function ImgSlider({ images }) {
       <div className={Style.bigImg}>
         <img
           src={`${images[0]}`}
-          alt="big images"
+          alt="No Image is there"
           onClick={() => setImageNumber(0)}
         />
       </div>
@@ -60,6 +62,7 @@ function ImgSlider({ images }) {
             <img
               key={index}
               src={`${image}`}
+              // src={images[index]}
               alt="small images"
               onClick={() => setImageNumber(index)}
             />

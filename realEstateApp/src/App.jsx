@@ -3,8 +3,6 @@ import {
   RouterProvider,
   Navigate,
 } from 'react-router-dom';
-import * as React from 'react';
-// 1. import `ChakraProvider` component
 import { ChakraProvider, extendTheme } from '@chakra-ui/react';
 
 import './App.css';
@@ -16,6 +14,8 @@ import ProfilePage from './pages/ProfilePage';
 import { AuthProvider } from './context/AuthContext';
 import SignIn from './components/SignIn';
 import NewPostPage from './pages/NewPostPage';
+import { FetchingUserIdData } from './components/FetchingUserIdData';
+import Login from './pages/Login';
 
 const colors = {
   brand: {
@@ -47,8 +47,9 @@ function App() {
           element: <ListPage />,
         },
         {
-          path: 'postDetail/:houseId',
+          path: 'postDetail/:postId',
           element: <DetailPage />,
+          loader: FetchingUserIdData,
         },
         {
           path: 'profile',
@@ -59,6 +60,10 @@ function App() {
           element: <SignIn />,
         },
         {
+          path: 'login',
+          element: <Login />,
+        },
+        {
           path: 'newPost',
           element: <NewPostPage />,
         },
@@ -66,9 +71,6 @@ function App() {
     },
   ]);
 
-  // createRoot(document.getElementById("root")).render(
-  //   <RouterProvider router={router} />
-  // );
   return (
     <ChakraProvider theme={theme}>
       <AuthProvider>
@@ -76,19 +78,23 @@ function App() {
       </AuthProvider>
     </ChakraProvider>
   );
-
-  // THIS FOR MY PRACTICE PURPOSE
-  // return (
-  //   <BrowserRouter>
-  //     <Routes>
-  //       <Route path="/" element={<AppLayout />}>
-  //         {/* <Route index element={<Navigate replace to="homePage" />} /> */}
-  //         <Route path="homePage" element={<HomePage />} />
-  //         <Route path="list" element={<p>list Page</p>} />
-  //       </Route>
-  //     </Routes>
-  //   </BrowserRouter>
-  // );
 }
 
 export default App;
+
+// createRoot(document.getElementById("root")).render(
+//   <RouterProvider router={router} />
+// );
+
+// THIS FOR MY PRACTICE PURPOSE
+// return (
+//   <BrowserRouter>
+//     <Routes>
+//       <Route path="/" element={<AppLayout />}>
+//         {/* <Route index element={<Navigate replace to="homePage" />} /> */}
+//         <Route path="homePage" element={<HomePage />} />
+//         <Route path="list" element={<p>list Page</p>} />
+//       </Route>
+//     </Routes>
+//   </BrowserRouter>
+// );
