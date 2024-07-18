@@ -3,11 +3,11 @@ import { useState } from 'react';
 
 import Style from './ImgSlider.module.css';
 
-function ImgSlider({ images }) {
+const path = function (imgName, ext) {
+  return `/realEstateImage/user_post_images/${imgName}.${ext}`;
+};
+function ImgSlider({ images, setImageNumber, imageNum }) {
   //states of a component
-  const [imageNum, setImageNumber] = useState(null);
-
-  console.log(images);
 
   // variable
   let totalImg = images.length;
@@ -33,7 +33,7 @@ function ImgSlider({ images }) {
             />
           </div>
           <div className={Style.imgSlider}>
-            <img src={`${images[imageNum]}`} alt="" />
+            <img src={`${path(images[imageNum], 'jpg')}`} alt="" />
           </div>
           <div className={Style.arrow}>
             <img
@@ -47,7 +47,7 @@ function ImgSlider({ images }) {
       )}
       <div className={Style.bigImg}>
         <img
-          src={`${images[0]}`}
+          src={`${path(images[0], 'jpg')}`}
           alt="No Image is there"
           onClick={() => setImageNumber(0)}
         />
@@ -56,12 +56,13 @@ function ImgSlider({ images }) {
         X
       </div>
       <div className={Style.smallImg}>
-        {images.map((image, index) => {
+        {images.map((img, index) => {
           if (index === 0) return null;
+          if (index > 3) return;
           return (
             <img
               key={index}
-              src={`${image}`}
+              src={`${path(img, 'jpg')}`}
               // src={images[index]}
               alt="small images"
               onClick={() => setImageNumber(index)}

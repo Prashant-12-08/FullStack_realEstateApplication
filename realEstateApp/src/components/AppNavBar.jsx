@@ -27,6 +27,7 @@ function AppNavBar() {
     }
     fetchUserData();
   }, [setCurrentUser]);
+  console.log(currentUser.avatar);
 
   return (
     <nav className={styles.nav}>
@@ -35,15 +36,15 @@ function AppNavBar() {
           <img src="/logo.png" />
           <span>LamaEstate</span>
         </a>
-        <a href="#">Home</a>
+        {/* <a href="#">Home</a>
         <a href="#">About</a>
         <a href="#">Contact</a>
-        <a href="#">Agents</a>
+        <a href="#">Agents</a> */}
       </div>
       <div className={styles.right}>
         {currentUser._id ? (
           <div className={styles.user}>
-            <img src="/default/user_default_img.jpg" alt="" />
+            <img src={`${currentUser.avatar}`} alt="" />
             <span className={styles.user_name}>{currentUser.name}</span>
             <Link to="profile" className={styles.profileBtn}>
               Profile

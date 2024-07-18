@@ -7,12 +7,28 @@ import Btn from '../ReusableComponent/Button';
 import style from './ProfilePage.module.css';
 import ListCard from '../components/ListCard';
 import { UserLocalHost } from '../lib/UserLocalHost';
+import { useFetchState } from '../hooks/useFetchState';
+const limit = 10;
 
 function ProfilePage() {
   const { currentUser, setCurrentUser } = useUser();
   const [userPosts, setUserPost] = useState([]);
+  const [pageNum, setPageNum] = useState(1);
+  const [loading, setLoading] = useState(false);
+  const [err, setErr] = useState('');
 
-  async function handleLogOut(cookieName) {
+  // handleScrollingEvent
+  function handleScrollingEvent() {
+    const { scrollTop, scrollHeight, clientHeight } = document.documentElement;
+    console.log(scrollTop, scrollHeight, clientHeight);
+    if (scrollHeight - clientHeight - scrollTop < 50) {
+      console.log('load');
+      setPageNum((prev) => prev + 1);
+    }
+  }
+
+  // handleLogOut
+  async function handleLogOut() {
     try {
       const res = await fetch(`${UserLocalHost}`, {
         method: 'PATCH',
@@ -29,21 +45,40 @@ function ProfilePage() {
       alert(err.message);
     }
   }
+
   useEffect(
     function () {
       async function fetchingUserPost() {
-        const res = await fetch(`${UserLocalHost}/posts`, {
-          method: 'GET',
-          credentials: 'include',
-        });
-        const { data } = await res.json();
-        const { userPosts: userPost } = data.posts;
-        setUserPost(userPost);
+        try {
+          setLoading(true);
+          const res = await fetch(
+            `${UserLocalHost}/posts?page=${pageNum}&limt=${limit}`,
+            {
+              method: 'GET',
+              credentials: 'include',
+            }
+          );
+          const data = await res.json();
+          if (res.ok === false) throw new Error(data.message);
+          setLoading(false);
+          setUserPost(data.data.posts.userPosts);
+          console.log(data);
+        } catch (err) {
+          console.log(err);
+          setErr(err.message);
+        }
       }
       fetchingUserPost();
     },
-    [setUserPost]
+    [setUserPost, pageNum]
   );
+
+  useEffect(function () {
+    window.addEventListener('scroll', handleScrollingEvent);
+    return function () {
+      window.removeEventListener('scroll', handleScrollingEvent);
+    };
+  }, []);
 
   return (
     <div className={style.profilePage}>
@@ -51,7 +86,9 @@ function ProfilePage() {
         <div className={style.wrapper}>
           <div className={style.profileInfo}>
             <p className={style.userInfo}>User Information</p>
-            <Btn text="Update Profile" />
+            <Link to="/updateMe">
+              <Btn text="Update Profile" />
+            </Link>
           </div>
           <div className={style.userDetails}>
             <div className={style.details}>
@@ -76,7 +113,7 @@ function ProfilePage() {
               <Btn text="Add New Post" />
             </Link>
           </div>
-          <ListCard posts={userPosts} />
+          <ListCard posts={userPosts} loading={loading} err={err} />
         </div>
       </div>
       <div className={style.right}></div>

@@ -2,7 +2,6 @@ import React from 'react';
 
 import style from './DetailPageFeature.module.css';
 import FeatureBox from '../pages/FeatureBox';
-import { singlePostData } from '../lib/temp';
 import Map from './Map';
 
 const featuresEl = [
@@ -53,8 +52,7 @@ const buttons = [
   { img: '/save.png', desc: 'Save the Place' },
 ];
 
-function DetailPageFetures({ postDetails }) {
-  console.log(postDetails);
+function DetailPageFetures({ postDetails, imageNum }) {
   featuresEl[0].desc = postDetails.utilities;
   featuresEl[1].desc = `Pet ${postDetails.pet}`;
   featuresEl[2].desc = `Must have ${postDetails.income}x the rent in total household  income`;
@@ -120,7 +118,10 @@ function DetailPageFetures({ postDetails }) {
         </div>
         <div className={style.feature}>
           <h5>Location</h5>
-          <div className={style.mapContainer}>
+          <div
+            className={style.mapContainer}
+            style={{ display: imageNum ? 'none' : '' }}
+          >
             <Map items={[postDetails]}></Map>
           </div>
         </div>

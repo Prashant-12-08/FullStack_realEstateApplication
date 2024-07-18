@@ -34,6 +34,7 @@ function NewPostPage() {
   // handling the form submit event
   const handleSubmit = async (e) => {
     e.preventDefault();
+    console.log(e.target);
     const formData = new FormData(e.target);
     images.forEach((img) => {
       formData.append('images', img);

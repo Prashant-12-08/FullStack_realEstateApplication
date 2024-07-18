@@ -16,6 +16,8 @@ import SignIn from './components/SignIn';
 import NewPostPage from './pages/NewPostPage';
 import { FetchingUserIdData } from './components/FetchingUserIdData';
 import Login from './pages/Login';
+import UpdateMe from './pages/UpdateMe';
+import OwnerPage from './pages/OwnerPage';
 
 const colors = {
   brand: {
@@ -66,6 +68,14 @@ function App() {
         {
           path: 'newPost',
           element: <NewPostPage />,
+        },
+        {
+          path: 'updateMe',
+          element: <UpdateMe />,
+        },
+        {
+          path: 'ownerPage/:ownerId',
+          element: <OwnerPage />,
         },
       ],
     },

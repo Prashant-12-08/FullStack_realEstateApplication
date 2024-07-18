@@ -2,11 +2,14 @@ import React from 'react';
 import style from './Card.module.css';
 import { Link } from 'react-router-dom';
 
+import { ImgPath } from '../utils/ImgPath';
+
 function Card({ item }) {
+  const images = item.images;
   return (
     <div className={style.card}>
       <Link to={`/postDetail/${item._id}`} className={style.imgContainer}>
-        <img src={`${item.img}`} />
+        <img src={`${ImgPath(images[0], 'jpg')}`} />
       </Link>
       <div className={style.textContainer}>
         <h2 className={style.title}>{item.title}</h2>
